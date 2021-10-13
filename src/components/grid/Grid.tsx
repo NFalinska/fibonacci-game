@@ -1,7 +1,11 @@
 import React from "react";
 import classes from "./grid.module.css";
-import { timeout } from "../../helpers/timeout";
-import { checkFibonacci } from "../../helpers/checkFibonacci";
+import {
+  getRowOfGrid,
+  getColumnOfGrid,
+  checkFibonacci,
+  timeout
+} from "../../helpers";
 
 interface GridItem {
   id: number;
@@ -12,16 +16,18 @@ interface GridItem {
 
 const DELAY_TIME = 200;
 
+const GRID_SIZE = 50;
+
 export function Grid() {
   const grid = () => {
-    const values = Array.from(Array(2500).keys());
+    const values = Array.from(Array(GRID_SIZE * GRID_SIZE).keys());
     const gridValues: Array<GridItem> = [];
     for (let i = 0; i < values.length; i++) {
       gridValues.push({
         id: i,
         value: 1,
-        col: i % 50,
-        row: Math.floor(i / 50)
+        col: getColumnOfGrid(i, GRID_SIZE),
+        row: getRowOfGrid(i, GRID_SIZE)
       });
     }
     return gridValues;
